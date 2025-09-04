@@ -1,5 +1,8 @@
-import multer from "multer";
-import path from "path";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.upload = void 0;
+const multer = require("multer");
+const path = require("path");
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "uploads/");
@@ -9,5 +12,5 @@ const storage = multer.diskStorage({
         cb(null, uniqueSuffix + path.extname(file.originalname));
     },
 });
-export const upload = multer({ storage });
+exports.upload = multer({ storage });
 //# sourceMappingURL=multer.config.js.map

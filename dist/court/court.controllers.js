@@ -1,7 +1,10 @@
-import { Court } from '../entities/court';
-export const getCourts = async (req, res) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteCourt = exports.updateCourt = exports.createCourt = exports.getCourt = exports.getCourts = void 0;
+const court_1 = require("../entities/court");
+const getCourts = async (req, res) => {
     try {
-        const courts = await Court.find();
+        const courts = await court_1.Court.find();
         res.status(200).json(courts);
     }
     catch (error) {
@@ -10,10 +13,11 @@ export const getCourts = async (req, res) => {
         }
     }
 };
-export const getCourt = async (req, res) => {
+exports.getCourts = getCourts;
+const getCourt = async (req, res) => {
     try {
         const { id } = req.params;
-        const court = await Court.findOneBy({ id: parseInt(id) });
+        const court = await court_1.Court.findOneBy({ id: parseInt(id) });
         if (!court) {
             return res.status(404).json({ message: 'La cancha no existe.' });
         }
@@ -25,16 +29,17 @@ export const getCourt = async (req, res) => {
         }
     }
 };
-export const createCourt = async (req, res) => {
+exports.getCourt = getCourt;
+const createCourt = async (req, res) => {
     try {
         const { name, wall_type, court_type, schedules } = req.body;
         const image_url = req.file ? `/uploads/${req.file.filename}` : "urlimg";
         console.log(schedules);
-        const existingCourt = await Court.findOneBy({ name: name });
+        const existingCourt = await court_1.Court.findOneBy({ name: name });
         if (existingCourt) {
             return res.status(409).json({ message: 'La cancha ya existe.' });
         }
-        const court = new Court();
+        const court = new court_1.Court();
         court.name = name;
         court.wall_type = wall_type;
         court.court_type = court_type;
@@ -49,10 +54,11 @@ export const createCourt = async (req, res) => {
         }
     }
 };
-export const updateCourt = async (req, res) => {
+exports.createCourt = createCourt;
+const updateCourt = async (req, res) => {
     try {
         const { id } = req.params;
-        const court = await Court.findOneBy({ id: parseInt(id) });
+        const court = await court_1.Court.findOneBy({ id: parseInt(id) });
         if (!court) {
             return res.status(404).json({ message: 'La cancha no existe.' });
         }
@@ -60,7 +66,7 @@ export const updateCourt = async (req, res) => {
         if (req.file) {
             updateData.image_url = `/uploads/${req.file.filename}`;
         }
-        await Court.update({ id: parseInt(id) }, updateData);
+        await court_1.Court.update({ id: parseInt(id) }, updateData);
         return res.status(200).json({ message: 'Cancha actualizada correctamente.' });
     }
     catch (error) {
@@ -69,10 +75,11 @@ export const updateCourt = async (req, res) => {
         }
     }
 };
-export const deleteCourt = async (req, res) => {
+exports.updateCourt = updateCourt;
+const deleteCourt = async (req, res) => {
     try {
         const { id } = req.params;
-        const result = await Court.delete({ id: parseInt(id) });
+        const result = await court_1.Court.delete({ id: parseInt(id) });
         if (result.affected === 0) {
             return res.status(404).json({ message: 'La cancha no existe.' });
         }
@@ -84,4 +91,5 @@ export const deleteCourt = async (req, res) => {
         }
     }
 };
+exports.deleteCourt = deleteCourt;
 //# sourceMappingURL=court.controllers.js.map

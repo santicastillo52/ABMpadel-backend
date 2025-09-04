@@ -1,11 +1,13 @@
-import 'reflect-metadata';
-import app from './app';
-import { AppDataSource } from './db';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+require("reflect-metadata");
+const app_1 = require("./app");
+const db_1 = require("./db");
 async function main() {
     try {
-        await AppDataSource.initialize();
+        await db_1.AppDataSource.initialize();
         console.log("Database Connected");
-        app.listen(3000);
+        app_1.default.listen(3000);
         console.log('Server is listening on port', 3000);
     }
     catch (error) {

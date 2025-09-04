@@ -1,7 +1,7 @@
-import express from 'express'
-import morgan from 'morgan';
-import cors from 'cors'
-import dotenv from 'dotenv';
+import * as express from 'express'
+import * as morgan from 'morgan';
+import * as cors from 'cors'
+import * as dotenv from 'dotenv';
 import courtRoutes from './court/court.routes'
 
 const app = express();

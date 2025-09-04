@@ -23,7 +23,7 @@ export const getCourt = async (req: Request, res: Response) => {
         if (!court) {
             return res.status(404).json({ message: 'La cancha no existe.' });
         }
-        
+
         return res.status(200).json(court);
     } catch (error) {
         if (error instanceof Error) {
@@ -34,11 +34,12 @@ export const getCourt = async (req: Request, res: Response) => {
 }
 
 
-export const createUser = async (req: Request, res: Response) => {
+export const createCourt = async (req: Request, res: Response) => {
     try {
-
+        
         const { name, wall_type, court_type, schedules } = req.body;
         const image_url = req.file ? `/uploads/${req.file.filename}` : "urlimg";
+        console.log(schedules)
 
         const existingCourt = await Court.findOneBy({ name: name });
 
@@ -63,7 +64,7 @@ export const createUser = async (req: Request, res: Response) => {
     }
 }
 
-export const updateUser = async (req: Request, res: Response) => {
+export const updateCourt = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const court = await Court.findOneBy({ id: parseInt(id!) });
@@ -88,7 +89,7 @@ export const updateUser = async (req: Request, res: Response) => {
     }
 };
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteCourt = async (req: Request, res: Response) => {
     try {
         const {id} = req.params;
         const result = await Court.delete({id: parseInt(id!)});
